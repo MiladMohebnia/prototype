@@ -1,31 +1,64 @@
 <?php
 
+use miladm\Prototype;
 use miladm\prototype\Schema;
+use miladm\table\Connection;
 
 include "vendor/autoload.php";
 
 define('MILADM_PROTOTYPE_SCHEMA_SORT', true);
 
-$a = new Schema('user_test');
+class MainConnection extends Connection
+{
+    public $host = "127.0.0.1";
+    public $databaseName = "sample";
+    public $user = 'root';
+    public $password = 'root';
+}
 
-$a->int('age')->notNull()->length(2);
-$a->bigInt('registerNumber')->default(123);
-$a->string('name');
-$a->text('bio')->notNull()->default('here\'s my bio');
-$a->boolean('activated')->default(0);
-$a->email('email')->notNull()
-    ->url('picture')
-    ->hash('password')
-    ->timestamp('birthdate')
-    ->json('setting')
-    ->object('posts', 'post');
+class User extends Prototype
+{
+    public function init(): Schema
+    {
+        return $this->schema('user_2')
+            ->string('name')
+            ->email('email')
+            ->hash('password')->private();
+    }
+
+    public function connection(): Connection
+    {
+        return new MainConnection;
+    }
+}
+
+class Post extends Prototype
+{
+    public function init(): Schema
+    {
+        return $this->schema('post_2')
+            ->string('title')
+            ->text('content')
+            ->object('user', new User);
+    }
+
+    public function connection(): Connection
+    {
+        return new MainConnection;
+    }
+}
+
+die(json_encode(
+    Post::get(),
+    JSON_PRETTY_PRINT
+));
 
 
-$b = new Schema('post');
-$b->string('title')
-    ->text('content');
 
 die(var_dump(
-    $a->init_query(),
-    $a->selectList()
+    // Post::create(),
+    // User::create()
+    Post::get()
+    // User::model()->schema()->fetchSchema(),
+    // Post::model()->schema()->fetchSchema(),
 ));

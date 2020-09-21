@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "miladm/orm",
-            "version": "3.5.0",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_ORM.git",
-                "reference": "248444bb1add87c78ab3433c1d047fdda167f657"
+                "reference": "008f5c0d655edb6052b243a28592646f63b44906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/248444bb1add87c78ab3433c1d047fdda167f657",
-                "reference": "248444bb1add87c78ab3433c1d047fdda167f657",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/008f5c0d655edb6052b243a28592646f63b44906",
+                "reference": "008f5c0d655edb6052b243a28592646f63b44906",
                 "shasum": ""
             },
             "type": "library",
@@ -37,7 +37,7 @@
                 }
             ],
             "description": "basic orm for php",
-            "time": "2020-09-21T09:07:10+00:00"
+            "time": "2020-09-21T15:10:48+00:00"
         }
     ],
     "packages-dev": [],
