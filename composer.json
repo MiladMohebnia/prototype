@@ -1,0 +1,19 @@
+{
+  "name": "miladm/prototype",
+  "type": "library",
+  "license": "Apache-2",
+  "authors": [
+    {
+      "name": "MiladM",
+      "email": "miladmohebnia@gmail.com"
+    }
+  ],
+  "require": {
+    "miladm/orm": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "miladm\\": "src/"
+    }
+  }
+}

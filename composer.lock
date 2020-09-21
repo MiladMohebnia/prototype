@@ -1,0 +1,52 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "4b4c15083aa0b83d82fd7e0d8d508d41",
+    "packages": [
+        {
+            "name": "miladm/orm",
+            "version": "3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MiladMohebnia/PHP_ORM.git",
+                "reference": "248444bb1add87c78ab3433c1d047fdda167f657"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/248444bb1add87c78ab3433c1d047fdda167f657",
+                "reference": "248444bb1add87c78ab3433c1d047fdda167f657",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "miladm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "MiladM",
+                    "email": "miladmohebnia@gmail.com"
+                }
+            ],
+            "description": "basic orm for php",
+            "time": "2020-09-21T09:07:10+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}
