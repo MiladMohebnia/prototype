@@ -74,10 +74,10 @@ class ModelHandler
             ->order($schema->getName() . "." . $schema->getKey(), $asc)
             ->select($schema->selectList());
 
-        return $this->schemaResult($resultList);
+        return $this->fetch_shemaType($resultList);
     }
 
-    private function schemaResult($resultList)
+    private function fetch_shemaType($resultList)
     {
         if (!$resultList) {
             return false;
@@ -104,7 +104,7 @@ class ModelHandler
             //         }
             //     }
             // } else {
-            $finalData[] = $this->fetch($fetchSchema, $row, $jsonList);
+            $finalData[] = $this->fetch_row($fetchSchema, $row, $jsonList);
             // }
         }
         if (!$finalData && isset($groupedFinalData)) {
@@ -116,18 +116,18 @@ class ModelHandler
     }
 
 
-    private function fetch($fetchSchema, $row, $jsonList = [])
+    private function fetch_row($fetchSchema, $row, $jsonList = [])
     {
         $data = [];
         foreach ($fetchSchema as $name => $keyName) {
             if (is_array($keyName)) {
-                $data[$name] = [$this->fetch($keyName, $row, $jsonList)];
+                $data[$name] = [$this->fetch_row($keyName, $row, $jsonList)];
             } elseif (is_object($keyName)) {
                 if (isset($keyName->id) && is_null($row[$keyName->id])) {
                     $data[$name] = null;
                     continue;
                 } else {
-                    $data[$name] = $this->fetch($keyName, $row, $jsonList);
+                    $data[$name] = $this->fetch_row($keyName, $row, $jsonList);
                 }
             } else {
                 $data[$name] = $row[$keyName];
