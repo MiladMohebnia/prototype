@@ -8,7 +8,6 @@ namespace miladm\prototype;
 
 class ObjectField extends DatabaseField
 {
-    public $schemaName;
-    public $namespace = null;
-    public $leftjoinOn;
+    public $schema;
+    public $mapping;
 }
