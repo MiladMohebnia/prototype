@@ -4,6 +4,7 @@ use miladm\prototype\Schema;
 
 include "vendor/autoload.php";
 
+define('MILADM_PROTOTYPE_SCHEMA_SORT', true);
 
 $a = new Schema('user_test');
 
@@ -25,5 +26,6 @@ $b->string('title')
     ->text('content');
 
 die(var_dump(
-    $a->init_query()
+    $a->init_query(),
+    $a->selectList()
 ));

@@ -2,18 +2,19 @@
 
 namespace miladm\prototype;
 
+defined('MILADM_PROTOTYPE_SCHEMA_SORT') ?: define('MILADM_PROTOTYPE_SCHEMA_SORT', TRUE);
 class Schema
 {
     public static $schemaNameList = [];
-    private $tableName;
+
     private $engine = "InnoDB";
     private $fieldList = [];
-    private $publicFieldList = [];
+    private $tableName;
     private $jsonFieldNameList = [];
-    private $leftJoinList = [];
-    // private $manyList = [];
-    private $primaryKey = false;
     private $lastFieldPointer = null;
+    private $leftJoinList = [];
+    private $publicFieldList = [];
+    private $primaryKey = false;
 
     function __construct($tableName, $defaultInit = true)
     {
@@ -158,7 +159,7 @@ class Schema
     }
 
     /*
-        set fields types
+     * set fields types
      */
     public function object($name, $schemaName, $leftJoinOn = "id", $notNull = false): Schema
     {
@@ -187,19 +188,6 @@ class Schema
         $this->leftJoinList[] = (object)["name" => $schemaName, "asName" => $name, "on" => $this->tableName . "." . $name . "=" . $name . ".id"];
         return $this;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * make current field private
@@ -237,6 +225,8 @@ class Schema
 
     /**
      * set a default value for current field
+     * ---------note: intelliphence document formatter 
+     * -------------- puts default in next line
      */
     public function
     default($value): Schema
@@ -275,6 +265,99 @@ class Schema
         ";
     }
 
+    public function getName()
+    {
+        return $this->tableName;
+    }
+
+    public function getKey()
+    {
+        return $this->primaryKey->name;
+    }
+
+    /*
+        list of the public keys and select list of objects
+        note it goes only one level inside object connections
+     */
+    public function selectList($asName = false, $preventObjects = false)
+    {
+        $schemaNameList = self::$schemaNameList;
+        $selectList = [];
+        $fieldList = $this->publicFieldList;
+        $this->sort($fieldList);
+        foreach ($fieldList as $name => $field) {
+            if ($field->type == "object" && !$preventObjects) {
+                $objectSelectList = $this->selectStringFromObject($field, $schemaNameList);
+                $selectList = array_merge($objectSelectList, $selectList);
+            } else {
+                $selectList[] = $this->selectString($asName, $name);
+            }
+        }
+        return $selectList;
+    }
+
+    public function getJsonList()
+    {
+        return count($this->jsonFieldNameList) ? $this->jsonFieldNameList : [];
+    }
+
+    private function selectString($coverName, $columnName)
+    {
+        if ($coverName) {
+            return $coverName . "." . $columnName . " as " . "schema_" . $coverName . "_" . $columnName;
+        }
+        return $this->tableName . "." . $columnName;
+    }
+
+    private function selectStringFromObject($field, $schemaNameList)
+    {
+        $selectList = [];
+        if (!isset($schemaNameList[$field->schemaName])) {
+            trigger_error('see me!');
+            if (!is_null($field->namespace)) {
+                if (class_exists(strtolower($field->namespace) . $field->schemaName)) {
+                    call_user_func(strtolower($field->namespace) . $field->schemaName . '::start');
+                }
+            } elseif (class_exists($field->schemaName)) {
+                call_user_func($field->schemaName . '::start');
+            } elseif (class_exists('\\' . strtolower($field->schemaName) . '\\' . $field->schemaName)) {
+                call_user_func('\\' . strtolower($field->schemaName) . '\\' . $field->schemaName . '::start');
+            } else {
+                trigger_error("the schema name $field->schemaName is invalid!");
+            }
+        }
+        $fieldList = $schemaNameList[$field->schemaName]->selectList($field->name, true);
+        $this->sort($fieldList);
+        foreach ($fieldList as $value) {
+            $selectList[] = $value;
+        }
+
+        // updating jsonName list
+        $objectJsonNameList = $schemaNameList[$field->schemaName]->getJsonList();
+        if ($objectJsonNameList) {
+            foreach ($objectJsonNameList as $value) {
+                $this->jsonFieldNameList[] = "schema_" . $field->name . "_" . $value;
+            }
+        }
+        return $selectList;
+    }
+
+    private function sort(&$array)
+    {
+        if (MILADM_PROTOTYPE_SCHEMA_SORT) {
+            ksort($array);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     private function init_query_keys()
     {
         return "`" . $this->primaryKey->name . "` int(" . $this->primaryKey->length . ") not null auto_increment,";
@@ -289,7 +372,7 @@ class Schema
     {
         $string = "";
         $fieldList = $this->fieldList;
-        ksort($fieldList);
+        $this->sort($fieldList);
         foreach ($fieldList as $name => $schema)
             $string .= $this->init_query_field_string($schema);
         return $string;
