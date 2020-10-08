@@ -44,6 +44,45 @@ abstract class Prototype
         return self::model()->get($condition, $limit, $start, $asc);
     }
 
+    public static function getById(int $id)
+    {
+        return self::model()->getById($id);
+    }
+
+    public static function getOne(array $condition = [], $asc = true)
+    {
+        return self::model()->getOne($condition, $asc);
+    }
+
+    public static function getFirst(array $condition = [])
+    {
+        return self::model()->getFirst($condition);
+    }
+
+    public static function getLast(array $condition = [])
+    {
+        return self::model()->getLast($condition);
+    }
+
+    public static function count(array $condition = [])
+    {
+        return self::model()->count($condition);
+    }
+
+    public static function sum(array $condition = [], $column)
+    {
+        return self::model()->sum($condition, $column);
+    }
+
+    public static function expect(array $condition = [], $number = 1)
+    {
+        return self::model()->expect($condition, $number);
+    }
+
+    public function delete(array $condition = [])
+    {
+    }
+
     public function table(): SchemaTable
     {
         return $this->model->table();

@@ -55,6 +55,31 @@ class ModelHandler
         return $this->table;
     }
 
+    public function getById(int $id)
+    {
+        $idFieldName = $this->schema()->getName() . '.id';
+        return $this->getOne([$idFieldName . '=?', $id]);
+    }
+
+    public function getOne(array $condition = [], $asc = true)
+    {
+        $result = $this->get($condition, 1, 0, $asc);
+        if (is_array($result)) {
+            return $result[0];
+        }
+        return $result;
+    }
+
+    public function getFirst(array $condition = [])
+    {
+        return $this->getOne($condition);
+    }
+
+    public function getLast(array $condition = [])
+    {
+        return $this->getOne($condition, false);
+    }
+
     public function get(array $condition = [], $limit = false, $start = false, $asc = true)
     {
         $table = $this->table;
@@ -75,6 +100,45 @@ class ModelHandler
             ->select($schema->selectList());
 
         return $this->fetch_shemaType($resultList);
+    }
+
+    public function count(array $condition = [])
+    {
+        if (count($condition) == 2) {
+            $table = $this->table->where($condition[0], $condition[1]);
+        } else {
+            $table = $this->table;
+        }
+        return $table->count();
+    }
+
+    public function sum(array $condition = [], $column)
+    {
+        $table = $this->table;
+        if (count($condition) > 0) {
+            $table = $table->where($condition[0], $condition[1]);
+        }
+        if (!strpos($column, '.')) {
+            $column = $table->cookColumn($column);
+        }
+        $sum = $table->select("sum($column) as sum")[0]['sum'];
+        return is_null($sum) ? 0 : $sum;
+    }
+
+    public function expect(array $condition = [], $number = 1)
+    {
+        return $number == $this->count($condition);
+    }
+
+    public function delete(array $condition = [])
+    {
+        // $table = $this->table;
+        // if (count($condition) > 0) {
+        //     $table = $table->where($condition[0], $condition[1]);
+        // } else {
+        //     return false;
+        // }
+        // return $table->delete();
     }
 
     private function fetch_shemaType($resultList)

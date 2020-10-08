@@ -49,7 +49,10 @@ class Post extends Prototype
 }
 
 die(json_encode(
-    Post::get(),
+    [
+        Post::sum([], 'user.id'),
+        Post::expect([], 3)
+    ],
     JSON_PRETTY_PRINT
 ));
 
@@ -58,7 +61,7 @@ die(json_encode(
 die(var_dump(
     // Post::create(),
     // User::create()
-    Post::get()
+    Post::getLast()
     // User::model()->schema()->fetchSchema(),
     // Post::model()->schema()->fetchSchema(),
 ));
