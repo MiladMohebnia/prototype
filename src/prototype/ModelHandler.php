@@ -18,7 +18,9 @@ class ModelHandler
 
     public function create()
     {
-        return $this->table->query($this->schema()->init_query());
+        foreach ($this->schema()->init_queryList() as $query) {
+            $this->table->safeMode()->query($query);
+        }
     }
 
     public function schema($name = false): Schema
