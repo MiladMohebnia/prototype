@@ -478,70 +478,72 @@ class Schema
         return $this;
     }
 
-    // /**
-    //  * insert data into schema template
-    //  * validate data input
-    //  *  trigger error on non validated
-    //  * check for required fields
-    //  *  trigger error on not set required fields
-    //  */
-    // public function fetchData(array $data, bool $checkNotNull = true)
-    // {
-    //     $returnData = [];
-    //     foreach ($this->fieldList as $fieldName => $template) {
-    //         // check if input is required and isset in data
-    //         if ($template->notNull && $template->default === false && $checkNotNull) {
-    //             if (!isset($data[$fieldName])) {
-    //                 return false; // $this->error('fetchData', "$fieldName required but has not been set in data");
-    //             }
-    //         }
-    //         if (isset($data[$fieldName]) && !is_null($data[$fieldName])) {
-    //             $value = $data[$fieldName];
+    /**
+     * insert data into schema template
+     * validate data input
+     *  trigger error on non validated
+     * check for required fields
+     *  trigger error on not set required fields
+     */
+    public function fetchData(array $data, bool $checkNotNull = true)
+    {
+        $returnData = [];
+        foreach ($this->fieldList as $fieldName => $template) {
 
-    //             // validate datatype
-    //             // $validationResult = \prototype\Validate::check($value, $template->type);
-    //             // if (!$validationResult)
-    //             //     return false;
+            // check if input is required and isset in data
+            if ($template->notNull && $template->default === false && $checkNotNull) {
+                if (!isset($data[$fieldName]) || is_null($data[$fieldName])) {
+                    return false; // $this->error('fetchData', "$fieldName required but has not been set in data");
+                }
+            }
+            // if (isset($data[$fieldName]) && !is_null($data[$fieldName])) {
+            // $value = $data[$fieldName];
 
-    //             // if everything is alright then push to return data array
-    //             $returnData["$this->tableName.$fieldName"] = $this->cookData($data[$fieldName], $template->type);
-    //         }
-    //     }
+            // validate datatype
+            // $validationResult = \prototype\Validate::check($value, $template->type);
+            // if (!$validationResult)
+            //     return false;
 
-    //     // if there's any id entered then take care of it
-    //     if (isset($data['id']) && is_int($data['id'])) {
-    //         $returnData['id'] = $data['id'];
-    //     }
-    //     return $returnData;
-    // }
+            // if everything is alright then push to return data array
+            if (isset($data[$fieldName]) && !is_null($data[$fieldName])) {
+                $returnData["$this->tableName.$fieldName"] = $this->cookData($data[$fieldName], $template->type);
+            }
+            // }
+        }
+        // if there's any id entered then take care of it
+        if (isset($data['id']) && is_int($data['id'])) {
+            $returnData['id'] = $data['id'];
+        }
+        return $returnData;
+    }
 
     // /**
     //  * get data and the type and do anything on data if necessary
     //  */
-    // private function cookData($data, $dataType)
-    // {
-    //     switch ($dataType) {
-    //         case 'hash':
-    //             return md5($data + 'dasfjsa');
-    //         case 'string':
-    //             return (string)$data;
-    //         case 'object':
-    //             if (is_int($data)) {
-    //                 return $data;
-    //             } elseif (is_string($data)) {
-    //                 return (int)$data;
-    //             } else {
-    //                 return $data->id;
-    //             }
-    //         case 'boolean':
-    //             return $data ? 1 : 0;
-    //         case 'JSON':
-    //             return json_encode($data);
+    private function cookData($data, $dataType)
+    {
+        switch ($dataType) {
+            case 'hash':
+                return md5($data . '//here goes hashcode');
+            case 'string':
+                return (string)$data;
+            case 'object':
+                if (is_int($data)) {
+                    return $data;
+                } elseif (is_string($data)) {
+                    return (int)$data;
+                } else {
+                    return $data->id;
+                }
+            case 'boolean':
+                return $data ? 1 : 0;
+            case 'JSON':
+                return json_encode($data);
 
-    //         default:
-    //             return $data;
-    //     }
-    // }
+            default:
+                return $data;
+        }
+    }
 
     /*
         registering normal type of fields

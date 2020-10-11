@@ -57,6 +57,21 @@ class ModelHandler
         return $this->table;
     }
 
+    public function add(array $data)
+    {
+        $validatedData = $this->validate($data);
+        if (!$validatedData)
+            return false;
+        if (count($validatedData) <= 0)
+            return false;
+        return $this->table->insert($validatedData);
+    }
+
+    public function validate(array $data, bool $checkNotNull = true)
+    {
+        return $this->schema()->fetchData($data, $checkNotNull);
+    }
+
     public function getById(int $id)
     {
         $idFieldName = $this->schema()->getName() . '.id';

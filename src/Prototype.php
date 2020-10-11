@@ -39,6 +39,11 @@ abstract class Prototype
         return self::model()->create();
     }
 
+    public static function add(array $data)
+    {
+        return self::model()->add($data);
+    }
+
     public static function get(array $condition = [], $limit = false, $start = false, $asc = true)
     {
         return self::model()->get($condition, $limit, $start, $asc);
