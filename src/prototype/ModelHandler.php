@@ -60,16 +60,33 @@ class ModelHandler
     public function add(array $data)
     {
         $validatedData = $this->validate($data);
-        if (!$validatedData)
+        if (!$validatedData) {
             return false;
-        if (count($validatedData) <= 0)
+        }
+        if (count($validatedData) <= 0) {
             return false;
+        }
         return $this->table->insert($validatedData);
     }
 
     public function validate(array $data, bool $checkNotNull = true)
     {
         return $this->schema()->fetchData($data, $checkNotNull);
+    }
+
+    public function update(array $newData, array $condition): int
+    {
+        if (count($newData) <= 0) {
+            return false;
+        }
+        $validatedData = $this->validate($newData, false);
+        if (count($condition) == 2) {
+            $t = $this->table->where($condition[0], $condition[1]);
+        } else {
+            return false;
+            // $t = $this->table;
+        }
+        return $t->update($validatedData);
     }
 
     public function getById(int $id)

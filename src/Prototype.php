@@ -44,6 +44,11 @@ abstract class Prototype
         return self::model()->add($data);
     }
 
+    public static function update(array $newData, array $condition)
+    {
+        return self::model()->update($newData, $condition);
+    }
+
     public static function get(array $condition = [], $limit = false, $start = false, $asc = true)
     {
         return self::model()->get($condition, $limit, $start, $asc);

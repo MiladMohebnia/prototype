@@ -23,7 +23,8 @@ class User extends Prototype
         return $this->schema('user_2')
             ->string('name')
             ->email('email')
-            ->hash('password')->private();
+            ->hash('password')->private()
+            ->json('something');
     }
 
     public function connection(): Connection
@@ -50,8 +51,12 @@ class Post extends Prototype
 
 die(json_encode(
     [
-        Post::sum([], 'user.id'),
-        Post::expect([], 3)
+        // User::update([
+        //     'email' => 'miladmohebnia@gmail.com',
+        //     'password' => 'jkdsafh'
+        // ],  ["name=?", ['milad']])
+        // User::create(),
+        User::get()
     ],
     JSON_PRETTY_PRINT
 ));
