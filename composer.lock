@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "miladm/orm",
-            "version": "3.5.6",
+            "version": "3.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_ORM.git",
-                "reference": "403b88ace97da25aa7ba323980c4204ee8617087"
+                "reference": "9e5bab247d67200475ba85e4137fa48c5d2ccc7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/403b88ace97da25aa7ba323980c4204ee8617087",
-                "reference": "403b88ace97da25aa7ba323980c4204ee8617087",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/9e5bab247d67200475ba85e4137fa48c5d2ccc7f",
+                "reference": "9e5bab247d67200475ba85e4137fa48c5d2ccc7f",
                 "shasum": ""
             },
             "type": "library",
@@ -37,7 +37,11 @@
                 }
             ],
             "description": "basic orm for php",
-            "time": "2020-09-22T11:35:03+00:00"
+            "support": {
+                "issues": "https://github.com/MiladMohebnia/PHP_ORM/issues",
+                "source": "https://github.com/MiladMohebnia/PHP_ORM/tree/v3.7.7"
+            },
+            "time": "2020-10-13T09:26:09+00:00"
         }
     ],
     "packages-dev": [],
@@ -48,5 +52,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
