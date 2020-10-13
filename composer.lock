@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b4c15083aa0b83d82fd7e0d8d508d41",
+    "content-hash": "c6bc6ccadd71864a7bd3f42f7fd46d0d",
     "packages": [
         {
             "name": "miladm/orm",
-            "version": "3.7.7",
+            "version": "3.7.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_ORM.git",
-                "reference": "9e5bab247d67200475ba85e4137fa48c5d2ccc7f"
+                "reference": "aa0b6b6708c77b8690f5bda7fa451c1f18905968"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/9e5bab247d67200475ba85e4137fa48c5d2ccc7f",
-                "reference": "9e5bab247d67200475ba85e4137fa48c5d2ccc7f",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/aa0b6b6708c77b8690f5bda7fa451c1f18905968",
+                "reference": "aa0b6b6708c77b8690f5bda7fa451c1f18905968",
                 "shasum": ""
             },
             "type": "library",
@@ -39,9 +39,9 @@
             "description": "basic orm for php",
             "support": {
                 "issues": "https://github.com/MiladMohebnia/PHP_ORM/issues",
-                "source": "https://github.com/MiladMohebnia/PHP_ORM/tree/v3.7.7"
+                "source": "https://github.com/MiladMohebnia/PHP_ORM/tree/v3.7.8"
             },
-            "time": "2020-10-13T09:26:09+00:00"
+            "time": "2020-10-13T15:27:05+00:00"
         }
     ],
     "packages-dev": [],

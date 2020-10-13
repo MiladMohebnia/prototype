@@ -80,13 +80,11 @@ class ModelHandler
             return false;
         }
         $validatedData = $this->validate($newData, false);
-        if (count($condition) == 2) {
-            $t = $this->table->where($condition[0], $condition[1]);
-        } else {
+        if (count($condition) <= 0) {
             return false;
-            // $t = $this->table;
         }
-        return $t->update($validatedData);
+        $table = $this->getTableWithCondition($condition);
+        return $table->update($validatedData);
     }
 
     public function getById(int $id)
@@ -116,10 +114,7 @@ class ModelHandler
 
     public function get(array $condition = [], $limit = false, $start = false, $asc = true)
     {
-        $table = $this->table;
-        if (count($condition) == 2) {
-            $table = $table->where($condition[0], $condition[1]);
-        }
+        $table = count($condition) > 0 ? $this->getTableWithCondition($condition) : $this->table;
         $asc = ($asc === false || $asc === "dasc") ? false : true;
         if (is_int($limit) && $limit > 0) {
             if (is_int($start)) {
@@ -138,20 +133,13 @@ class ModelHandler
 
     public function count(array $condition = [])
     {
-        if (count($condition) == 2) {
-            $table = $this->table->where($condition[0], $condition[1]);
-        } else {
-            $table = $this->table;
-        }
+        $table = count($condition) > 0 ? $this->getTableWithCondition($condition) : $this->table;
         return $table->count();
     }
 
     public function sum(array $condition = [], $column)
     {
-        $table = $this->table;
-        if (count($condition) > 0) {
-            $table = $table->where($condition[0], $condition[1]);
-        }
+        $table = count($condition) > 0 ? $this->getTableWithCondition($condition) : $this->table;
         if (!strpos($column, '.')) {
             $column = $table->cookColumn($column);
         }
@@ -173,6 +161,17 @@ class ModelHandler
         //     return false;
         // }
         // return $table->delete();
+    }
+
+    private function getTableWithCondition(array $condition)
+    {
+        if (
+            count($condition) == 2 &&
+            isset($condition[1])
+        ) {
+            return $this->table->trace()->where($condition[0], $condition[1]);
+        }
+        return $this->table->trace()->where($condition);
     }
 
     private function fetch_shemaType($resultList)

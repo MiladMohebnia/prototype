@@ -56,7 +56,8 @@ die(json_encode(
         //     'password' => 'jkdsafh'
         // ],  ["name=?", ['milad']])
         // User::create(),
-        User::get()
+        // User::get(['a=?&b=?', [12, 5]]),
+        User::get(['a' => ['c' => 1, 'd' => 4], 'b' => 7]),
     ],
     JSON_PRETTY_PRINT
 ));
