@@ -169,9 +169,9 @@ class ModelHandler
             count($condition) == 2 &&
             isset($condition[1])
         ) {
-            return $this->table->trace()->where($condition[0], $condition[1]);
+            return $this->table->where($condition[0], $condition[1]);
         }
-        return $this->table->trace()->where($condition);
+        return $this->table->where($condition);
     }
 
     private function fetch_shemaType($resultList)
