@@ -10,7 +10,8 @@ class ModelHandler
     private $table = null;
     private $schema = false;
     private $connection = false;
-
+    private $mappingSchema = [];
+    private $mapMergingPrototypeName = false;
 
     function __construct()
     {
@@ -87,6 +88,53 @@ class ModelHandler
         return $table->update($validatedData);
     }
 
+    public function map(array $map): ModelHandler
+    {
+        $progressMapping = [];
+        foreach ($map as $title => $fieldName) {
+            if (is_array($fieldName)) {
+                foreach ($fieldName as $fieldSubTitle => $fieldSubName) {
+                    $subFieldMapping[$fieldSubTitle] = $this->mapFieldParser($fieldSubName);
+                }
+                $progressMapping[$title] = $subFieldMapping;
+            } else {
+                $progressMapping[$title] = $this->mapFieldParser($fieldName);
+            }
+        }
+        $this->mappingSchema = $progressMapping;
+        return $this;
+    }
+
+    public function mapMerge($fieldName): ModelHandler
+    {
+        if (count($this->mappingSchema) <= 0) {
+            trigger_error('there must be a mapping for mapGroup');
+            return $this;
+        }
+        $this->mapMergingPrototypeName = $this->mapFieldParser($fieldName);
+        return $this;
+    }
+
+    private function mapFieldParser($fieldName)
+    {
+        if (strpos($fieldName, '.') == false) {
+            return $fieldName;
+        } else {
+            list($tableName, $tableField) = explode('.', $fieldName);
+            if ($tableName == $this->schema) {
+                return $tableField;
+            } else {
+                return "schema_" . $tableName . "_" . $tableField;
+            }
+        }
+    }
+
+    public function groupBy($column)
+    {
+        $this->table = $this->table->group($column);
+        return $this;
+    }
+
     public function getById(int $id)
     {
         $idFieldName = $this->schema()->getName() . '.id';
@@ -127,8 +175,7 @@ class ModelHandler
         $resultList = $table
             ->order($schema->getName() . "." . $schema->getKey(), $asc)
             ->select($schema->selectList());
-
-        return $this->fetch_shemaType($resultList);
+        return $this->fetch_schemaType($resultList);
     }
 
     public function count(array $condition = [])
@@ -174,35 +221,33 @@ class ModelHandler
         return $this->table->where($condition);
     }
 
-    private function fetch_shemaType($resultList)
+    private function fetch_schemaType($resultList)
     {
         if (!$resultList) {
             return false;
         }
-        // if ($this->resultMapping) {
-        //     $fetchSchema = $this->resultMapping;
-        // } else {
-        $fetchSchema = $this->schema()->fetchSchema();
-        // }
+        $fetchSchema = count($this->mappingSchema) ? $this->mappingSchema : $this->schema()->fetchSchema();
         $jsonList = $this->schema()->getJsonList();
         $finalData = [];
+        $groupedFinalData = [];
+
         foreach ($resultList as $row) {
 
             // handling groupBy if exists
-            // if ($this->mapGroupFields) {
-            //     $keyName = $row[$this->mapGroupFields];
-            //     if (!isset($groupedFinalData[$keyName])) {
-            //         $groupedFinalData[$keyName] = $this->fetch($fetchSchema, $row, $jsonList);
-            //     } else {
-            //         foreach ($fetchSchema as $fieldName => $fieldSchema) {
-            //             if (is_array($fieldSchema)) {
-            //                 $groupedFinalData[$keyName]->{$fieldName}[] = $this->fetch($fieldSchema, $row, $jsonList);
-            //             }
-            //         }
-            //     }
-            // } else {
-            $finalData[] = $this->fetch_row($fetchSchema, $row, $jsonList);
-            // }
+            if ($this->mapMergingPrototypeName) {
+                $keyName = $row[$this->mapMergingPrototypeName];
+                if (!isset($groupedFinalData[$keyName])) {
+                    $groupedFinalData[$keyName] = $this->fetch_row($fetchSchema, $row, $jsonList);
+                } else {
+                    foreach ($fetchSchema as $fieldName => $fieldSchema) {
+                        if (is_array($fieldSchema)) {
+                            $groupedFinalData[$keyName]->{$fieldName}[] = $this->fetch_row($fieldSchema, $row, $jsonList);
+                        }
+                    }
+                }
+            } else {
+                $finalData[] = $this->fetch_row($fetchSchema, $row, $jsonList);
+            }
         }
         if (!$finalData && isset($groupedFinalData)) {
             foreach ($groupedFinalData as $row) {

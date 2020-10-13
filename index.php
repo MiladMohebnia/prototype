@@ -51,13 +51,21 @@ class Post extends Prototype
 
 die(json_encode(
     [
+        // User::create(),
+        // Post::create(),
         // User::update([
         //     'email' => 'miladmohebnia@gmail.com',
         //     'password' => 'jkdsafh'
         // ],  ["name=?", ['milad']])
         // User::create(),
         // User::get(['a=?&b=?', [12, 5]]),
-        User::get(['a' => ['c' => 1, 'd' => 4], 'b' => 7]),
+        // User::get(['a' => ['c' => 1, 'd' => 4], 'b' => 7]),
+        Post::map([
+            'user' => 'user.name',
+            'post' => [
+                'title' => 'title'
+            ]
+        ])->mapMerge('user.id')->get()
     ],
     JSON_PRETTY_PRINT
 ));

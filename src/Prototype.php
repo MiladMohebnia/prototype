@@ -39,6 +39,11 @@ abstract class Prototype
         return self::model()->create();
     }
 
+    public static function map(array $map): ModelHandler
+    {
+        return self::model()->map($map);
+    }
+
     public static function add(array $data)
     {
         return self::model()->add($data);
