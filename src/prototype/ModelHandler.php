@@ -58,6 +58,12 @@ class ModelHandler
         return $this->table;
     }
 
+    public function trace(): ModelHandler
+    {
+        $this->table = $this->table->trace();
+        return $this;
+    }
+
     public function add(array $data)
     {
         $validatedData = $this->validate($data);

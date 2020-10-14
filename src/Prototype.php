@@ -38,6 +38,10 @@ abstract class Prototype
     {
         return self::model()->create();
     }
+    public static function trace(): ModelHandler
+    {
+        return self::model()->trace();
+    }
 
     public static function map(array $map): ModelHandler
     {
