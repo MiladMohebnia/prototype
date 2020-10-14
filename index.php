@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * ALTER TABLE `votes` ADD UNIQUE `unique_index`(`user`, `email`, `address`);
+ * prototype query trace
+ * 
+ */
+
 use miladm\Prototype;
 use miladm\prototype\Schema;
 use miladm\table\Connection;
