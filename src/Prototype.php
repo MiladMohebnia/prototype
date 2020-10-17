@@ -38,9 +38,24 @@ abstract class Prototype
     {
         return self::model()->create();
     }
+
     public static function trace(): ModelHandler
     {
         return self::model()->trace();
+    }
+
+    public static function hasMany(Prototype $targetPrototype, $mapping): ModelHandler
+    {
+        $targetTableName = $targetPrototype->model()->table()->tableName();
+        $model = self::model();
+        $model->schema()->hasMany($targetTableName, $targetPrototype, $mapping);
+        $model->hasMany($targetPrototype->model(), $mapping);
+
+        // code below to start mapping!
+        // $currentTableName = $model->table()->name();
+        // $currentTableKey = $model->schema()->getKey();
+        // $model->mapMerge($currentTableName . '.' . $currentTableKey);
+        return $model;
     }
 
     public static function map(array $map): ModelHandler

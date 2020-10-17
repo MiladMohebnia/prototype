@@ -42,15 +42,32 @@ class ModelHandler
 
     public function setupTable()
     {
-        $this->table = new SchemaTable($this->schema(), $this->connection);
-        $this->table->fetchArray();
-
+        $this->table = $this->schemaTable_get();
         // left-join all object fields in schema
         foreach ($this->schema()->leftjoinList() as $value) {
             $targetTable = $value->table->coverName($value->coverName);
             $this->table = $this->table->leftjoin($targetTable, $value->mapping);
         }
         return true;
+    }
+
+    public function schemaTable_get()
+    {
+        $table = new SchemaTable($this->schema(), $this->connection);
+        $table->fetchArray();
+        return $table;
+    }
+
+    public function leftJoin($targetTable, $mapping)
+    {
+        $this->table = $this->table->leftJoin($targetTable, $mapping);
+        return $this;
+    }
+
+    public function hasMany(ModelHandler $targetModel, $mapping): ModelHandler
+    {
+        $targetTable = $targetModel->schemaTable_get();
+        return $this->leftJoin($targetTable, $mapping);
     }
 
     public function table(): SchemaTable

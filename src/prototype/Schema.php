@@ -194,6 +194,31 @@ class Schema
         return $this;
     }
 
+    public function hasMany($name, $protoType, $mapping = false, $notNull = false): Schema
+    {
+        $this->field_check($name);
+        if ($mapping === false) {
+            $mapping = $this->tableName;
+        }
+        $field = &$this->registerObject($name, $protoType, $mapping, $notNull);
+        $this->publicFieldList[$name] = &$field;
+        $this->lastFieldPointer = &$field;
+        if (is_array($mapping) && count($mapping) == 2) {
+            $mappingArray = $mapping;
+        } else {
+            $mappingArray = [
+                $protoType->table()->name() . "." . $mapping,
+                $this->tableName . "." . $this->primaryKey->name
+            ];
+        }
+        $this->leftJoinList[] = (object)[
+            "table" => $protoType->table(),
+            "coverName" => $name,
+            "mapping" => $mappingArray
+        ];
+        return $this;
+    }
+
     /**
      * make current field private
      */
