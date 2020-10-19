@@ -413,6 +413,9 @@ class Schema
         $this->sort($fieldList);
         foreach ($fieldList as $name => $schema) {
             $string[] = "ALTER TABLE `$this->tableName` ADD " . $this->init_query_field_string($schema) . ";";
+            if ($schema->type == 'object') {
+                $string[] = "ALTER TABLE `$this->tableName` ADD INDEX `" . $schema->name . "`(" . $schema->name . ");";
+            }
         }
         return $string;
     }
