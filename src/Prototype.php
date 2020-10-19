@@ -22,7 +22,7 @@ abstract class Prototype
 
     abstract function init(): Schema;
 
-    abstract function connection(): Connection;
+    abstract function connection();
 
     public static function model(): ModelHandler
     {
