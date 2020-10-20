@@ -222,15 +222,14 @@ class ModelHandler
         return $number == $this->count($condition);
     }
 
-    public function delete(array $condition = [])
+    public function delete(array $condition)
     {
-        // $table = $this->table;
-        // if (count($condition) > 0) {
-        //     $table = $table->where($condition[0], $condition[1]);
-        // } else {
-        //     return false;
-        // }
-        // return $table->delete();
+        if (count($condition) > 0) {
+            $table =  $this->getTableWithCondition($condition);
+        } else {
+            return false;
+        }
+        return $table->delete();
     }
 
     private function getTableWithCondition(array $condition)

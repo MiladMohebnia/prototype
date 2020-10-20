@@ -62,6 +62,7 @@ class Post extends Prototype
 
 die(json_encode(
     [
+        // Post::delete(['id' => 2]),
         User::posts()->get()
         // User::create(),
         // Post::create(),

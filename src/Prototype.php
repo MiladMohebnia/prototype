@@ -113,8 +113,9 @@ abstract class Prototype
         return self::model()->expect($condition, $number);
     }
 
-    public function delete(array $condition = [])
+    public static function delete(array $condition)
     {
+        return self::model()->delete($condition);
     }
 
     public function table(): SchemaTable
