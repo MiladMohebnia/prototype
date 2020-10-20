@@ -2,7 +2,7 @@
   "name": "miladm/prototype",
   "type": "library",
   "license": "Apache-2.0",
-  "version": "1.9.5",
+  "version": "1.11.5",
   "authors": [
     {
       "name": "MiladM",
@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "miladm/orm": "^3.5"
+    "miladm/orm": "3.9.9",
+    "miladm/prototype_cli": "^1.0"
   },
   "autoload": {
     "psr-4": {
