@@ -1,0 +1,80 @@
+#!/usr/bin/php
+<?php
+
+function spacer()
+{
+    echo PHP_EOL . PHP_EOL  . PHP_EOL . PHP_EOL;
+}
+
+class Args
+{
+    public $args = false;
+
+    function __construct()
+    {
+        if ($this->args === false) {
+            global $argv;
+            $this->args = $argv;
+            array_shift($this->args);
+        }
+    }
+
+    public function shift($expected = false)
+    {
+        $value = array_shift($this->args);
+        if ($expected && $value === null) {
+            trigger_error('more argument(s) expected');
+        }
+        return $value;
+    }
+}
+
+class Command
+{
+    public static $args = false;
+    public static $request = false;
+
+    public static function register(array $argumanetList, $callback)
+    {
+        self::init();
+        if (self::match($argumanetList)) {
+            spacer();
+            $callback(self::$args);
+            spacer();
+            die;
+        }
+    }
+
+    public static function init()
+    {
+        if (self::$args === false) {
+            self::$args = new Args();
+        }
+    }
+
+    public static function match($argumanetList)
+    {
+        if (self::$request === false && self::$args !== false) {
+            self::$request = self::$args->shift();
+        }
+        return in_array(self::$request, $argumanetList);
+    }
+}
+
+define("DIR", getcwd());
+chdir(DIR);
+if (is_file(DIR . "/vendor/autoload.php")) {
+    require DIR . "/vendor/autoload.php";
+}
+
+Command::register(["create", "c"], function (Args $args) {
+    while (($prototype = $args->shift()) != null) {
+        $prototype = str_replace("/", "\\", $prototype);
+        $runner = "\app\\$prototype::create";
+        $runner();
+        echo "✅\t" . $runner . PHP_EOL;
+    }
+});
+
+
+trigger_error("❌\tcommand `" . (new Args())->shift() . '` not found');
