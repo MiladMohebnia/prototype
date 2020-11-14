@@ -18,11 +18,22 @@ abstract class Prototype
         $this->init();
         $this->model->setConnection($this->connection());
         $this->model->setupTable();
+        if (
+            $this->defaultDataObject() &&
+            class_exists($this->defaultDataObject())
+        ) {
+            $this->model->dataObject_set($this->defaultDataObject());
+        }
     }
 
     abstract function init(): Schema;
 
     abstract function connection();
+
+    public function defaultDataObject()
+    {
+        return false;
+    }
 
     public static function model(): ModelHandler
     {
@@ -121,5 +132,10 @@ abstract class Prototype
     public function table(): SchemaTable
     {
         return $this->model->table();
+    }
+
+    public function dataObject($className)
+    {
+        return self::model()->dataObject_set($className);
     }
 }

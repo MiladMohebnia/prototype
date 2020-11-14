@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c66ab07621283ee27ca4dc409e50488",
+    "content-hash": "778a574426dbd23536d2456d67be9276",
     "packages": [
+        {
+            "name": "miladm/data-object",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MiladMohebnia/PHP_dataObject.git",
+                "reference": "b83275ab82c1e7dcecd16f064ae293494dd7da4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_dataObject/zipball/b83275ab82c1e7dcecd16f064ae293494dd7da4a",
+                "reference": "b83275ab82c1e7dcecd16f064ae293494dd7da4a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "miladm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "MiladM",
+                    "email": "miladmohebnia@gmail.com"
+                }
+            ],
+            "description": "simply control your data with data object method",
+            "support": {
+                "issues": "https://github.com/MiladMohebnia/PHP_dataObject/issues",
+                "source": "https://github.com/MiladMohebnia/PHP_dataObject/tree/v1.0.0"
+            },
+            "time": "2020-11-14T15:07:54+00:00"
+        },
         {
             "name": "miladm/orm",
             "version": "3.9.9",

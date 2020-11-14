@@ -12,6 +12,8 @@ class ModelHandler
     private $connection = false;
     private $mappingSchema = [];
     private $mapMergingPrototypeName = false;
+    private $dataObject = false;
+
 
     function __construct()
     {
@@ -232,6 +234,12 @@ class ModelHandler
         return $table->delete();
     }
 
+    public function dataObject_set($className)
+    {
+        $this->dataObject = $className;
+        return $this;
+    }
+
     private function getTableWithCondition(array $condition)
     {
         if (
@@ -268,11 +276,18 @@ class ModelHandler
                     }
                 }
             } else {
-                $finalData[] = $this->fetch_row($fetchSchema, $row, $jsonList);
+                $row = $this->fetch_row($fetchSchema, $row, $jsonList);
+                if (class_exists($this->dataObject)) {
+                    $row = new $this->dataObject($row);
+                }
+                $finalData[] = $row;
             }
         }
         if (!$finalData && isset($groupedFinalData)) {
             foreach ($groupedFinalData as $row) {
+                if (class_exists($this->dataObject)) {
+                    $row = new $this->dataObject($row);
+                }
                 $finalData[] = $row;
             }
         }

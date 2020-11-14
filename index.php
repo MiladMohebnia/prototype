@@ -6,6 +6,7 @@
  * 
  */
 
+use miladm\DataObject;
 use miladm\Prototype;
 use miladm\prototype\Schema;
 use miladm\table\Connection;
@@ -16,7 +17,7 @@ define('MILADM_PROTOTYPE_SCHEMA_SORT', true);
 
 class MainConnection extends Connection
 {
-    public $host = "172.19.0.2";
+    public $host = "127.0.0.1";
     public $databaseName = "sample";
     public $user = 'root';
     public $password = 'root';
@@ -59,6 +60,148 @@ class Post extends Prototype
         return new MainConnection;
     }
 }
+
+
+// $DO = new DataObject;
+// $object = (object) [
+//     "name" => 'milad',
+//     'age' => 28
+// ];
+// $DO->injectData($object);
+
+// die(var_dump(
+//     $DO,
+//     $DO->name
+// ));
+
+
+// // part 2
+// class UserDataObject extends DataObject
+// {
+//     public $name;
+//     public $age;
+// }
+// $DO = new UserDataObject;
+// $object = (object) [
+//     "name" => 'milad',
+//     'age' => 28
+// ];
+// $DO->injectData($object);
+
+// die(var_dump(
+//     $DO,
+//     $DO->name
+// ));
+
+
+
+// // part 3
+// class UserDataObject extends DataObject
+// {
+//     public $name;
+//     public $email;
+// }
+
+// $user = User::dataObject(UserDataObject::class)->get();
+// foreach ($user as $u) {
+//     (var_dump(
+//         $u,
+//         $u->name,
+//         $u->updateTime,
+//         "---------------------------------------------------------------"
+//     ));
+// }
+// die;
+
+// part 4
+
+class UserDataObject extends DataObject
+{
+    public $name;
+    public $email;
+
+    public function isAdmin()
+    {
+        return $this->name === "admin";
+    }
+}
+
+class PostDataObject extends DataObject
+{
+    public $title;
+    public $content;
+    public $user;
+
+    public function init()
+    {
+        $this->user  = UserDataObject::class;
+    }
+
+    public function hasAccess()
+    {
+        if ($this->user->isAdmin()) {
+            return true;
+        }
+        return false;
+    }
+}
+
+class User2 extends User
+{
+    public function defaultDataObject()
+    {
+        return UserDataObject::class;
+    }
+}
+class Post2 extends Post
+{
+    public function defaultDataObject()
+    {
+        return PostDataObject::class;
+    }
+}
+
+// $user = User2::get();
+$postList = Post2::get();
+foreach ($postList as $post) {
+    (var_dump(
+        $post,
+        $post->name,
+        $post->user->isAdmin(),
+        $post->hasAccess(),
+        "---------------------------------------------------------------"
+    ));
+}
+die;
+
+
+
+
+die(json_encode(
+    [
+        // User::create(),
+        // Post::create(),
+        // User::update([
+        //     'email' => 'miladmohebnia@gmail.com',
+        //     'password' => 'jkdsafh'
+        // ],  ["name=?", ['milad']])
+        // User::create(),
+        User::get()
+    ],
+    JSON_PRETTY_PRINT
+));
+
+
+
+die(var_dump(
+    // Post::create(),
+    // User::create()
+    Post::getLast()
+    // User::model()->schema()->fetchSchema(),
+    // Post::model()->schema()->fetchSchema(),
+));
+
+
 
 die(json_encode(
     [
