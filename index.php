@@ -134,7 +134,7 @@ class PostDataObject extends DataObject
 
     public function init()
     {
-        $this->user  = UserDataObject::class;
+        $this->user  = new UserDataObject();
     }
 
     public function hasAccess()
@@ -150,14 +150,14 @@ class User2 extends User
 {
     public function defaultDataObject()
     {
-        return UserDataObject::class;
+        return new UserDataObject();
     }
 }
 class Post2 extends Post
 {
     public function defaultDataObject()
     {
-        return PostDataObject::class;
+        return new PostDataObject();
     }
 }
 
@@ -166,7 +166,7 @@ $postList = Post2::get();
 foreach ($postList as $post) {
     (var_dump(
         $post,
-        $post->name,
+        $post->user->name,
         $post->user->isAdmin(),
         $post->hasAccess(),
         "---------------------------------------------------------------"

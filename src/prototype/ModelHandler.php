@@ -2,6 +2,7 @@
 
 namespace miladm\prototype;
 
+use miladm\DataObject;
 use miladm\table\Connection;
 
 class ModelHandler
@@ -236,6 +237,9 @@ class ModelHandler
 
     public function dataObject_set($className)
     {
+        if (is_object($className) && $className instanceof DataObject) {
+            $className = get_class($className);
+        }
         $this->dataObject = $className;
         return $this;
     }

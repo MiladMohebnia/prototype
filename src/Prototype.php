@@ -18,11 +18,14 @@ abstract class Prototype
         $this->init();
         $this->model->setConnection($this->connection());
         $this->model->setupTable();
-        if (
-            $this->defaultDataObject() &&
-            class_exists($this->defaultDataObject())
-        ) {
-            $this->model->dataObject_set($this->defaultDataObject());
+        $defaultDataObject = $this->defaultDataObject();
+        if ($defaultDataObject) {
+            if (is_object($defaultDataObject) && $defaultDataObject instanceof DataObject) {
+                $defaultDataObject = get_class($defaultDataObject);
+            }
+            if (class_exists($defaultDataObject)) {
+                $this->model->dataObject_set($this->defaultDataObject());
+            }
         }
     }
 
