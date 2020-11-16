@@ -129,13 +129,13 @@ abstract class Prototype
         return self::model()->delete($condition);
     }
 
+    public static function dataObject($className)
+    {
+        return self::model()->dataObject_set($className);
+    }
+
     public function table(): SchemaTable
     {
         return $this->model->table();
-    }
-
-    public function dataObject($className)
-    {
-        return self::model()->dataObject_set($className);
     }
 }
