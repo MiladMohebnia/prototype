@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "miladm/data-object",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_dataObject.git",
-                "reference": "eee07a297228192f2f246d8947cc2a6d6ee605a9"
+                "reference": "b6cd7bb0396bcd5242e8c2f002737c2756ff12ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_dataObject/zipball/eee07a297228192f2f246d8947cc2a6d6ee605a9",
-                "reference": "eee07a297228192f2f246d8947cc2a6d6ee605a9",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_dataObject/zipball/b6cd7bb0396bcd5242e8c2f002737c2756ff12ac",
+                "reference": "b6cd7bb0396bcd5242e8c2f002737c2756ff12ac",
                 "shasum": ""
             },
             "type": "library",
@@ -39,9 +39,9 @@
             "description": "simply control your data with data object method",
             "support": {
                 "issues": "https://github.com/MiladMohebnia/PHP_dataObject/issues",
-                "source": "https://github.com/MiladMohebnia/PHP_dataObject/tree/v1.1.0"
+                "source": "https://github.com/MiladMohebnia/PHP_dataObject/tree/v1.1.1"
             },
-            "time": "2020-11-17T09:27:13+00:00"
+            "time": "2020-11-17T10:04:57+00:00"
         },
         {
             "name": "miladm/orm",
