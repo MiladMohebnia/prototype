@@ -4,23 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5908e5190f6e2eb7f5163cbcef6e2df0",
+    "content-hash": "077a138c20b17879daec3679a93714f0",
     "packages": [
         {
             "name": "miladm/data-object",
-            "version": "dev-master",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_dataObject.git",
-                "reference": "d1080859ac646305183f0c1f17acbc3928bf279a"
+                "reference": "eee07a297228192f2f246d8947cc2a6d6ee605a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_dataObject/zipball/d1080859ac646305183f0c1f17acbc3928bf279a",
-                "reference": "d1080859ac646305183f0c1f17acbc3928bf279a",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_dataObject/zipball/eee07a297228192f2f246d8947cc2a6d6ee605a9",
+                "reference": "eee07a297228192f2f246d8947cc2a6d6ee605a9",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -40,9 +39,9 @@
             "description": "simply control your data with data object method",
             "support": {
                 "issues": "https://github.com/MiladMohebnia/PHP_dataObject/issues",
-                "source": "https://github.com/MiladMohebnia/PHP_dataObject/tree/master"
+                "source": "https://github.com/MiladMohebnia/PHP_dataObject/tree/v1.1.0"
             },
-            "time": "2020-11-16T22:16:03+00:00"
+            "time": "2020-11-17T09:27:13+00:00"
         },
         {
             "name": "miladm/orm",
@@ -117,9 +116,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "miladm/data-object": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
