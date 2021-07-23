@@ -11,10 +11,18 @@
       "port": 9000
     },
     {
-      "name": "Launch currently open script",
+      "name": "Launch index",
       "type": "php",
       "request": "launch",
       "program": "${workspaceFolder}/index.php",
+      "cwd": "${fileDirname}",
+      "port": 9000
+    },
+    {
+      "name": "Launch currently open script",
+      "type": "php",
+      "request": "launch",
+      "program": "${file}",
       "cwd": "${fileDirname}",
       "port": 9000
     }
