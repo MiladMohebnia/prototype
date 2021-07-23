@@ -17,6 +17,7 @@ class Schema
     private $fieldList = [];
     private $jsonFieldNameList = [];
     private $leftJoinList = [];
+    private $hashFunction = null;
 
     function __construct($tableName, $defaultInit = true)
     {
@@ -139,6 +140,12 @@ class Schema
         $this->field_check($name);
         $field = &$this->registerField("hash", $name, 200, false, false, false);
         $this->publicFieldList[$name] = $field;
+        return $this;
+    }
+
+    public function hashFunction($callableFUnction)
+    {
+        $this->hashFunction = $callableFUnction;
         return $this;
     }
 
@@ -552,7 +559,10 @@ class Schema
     {
         switch ($dataType) {
             case 'hash':
-                return md5($data . '//here goes hashcode');
+                if (!$this->hashFunction) {
+                    return md5($data . '//here goes hashcode');
+                }
+                return ($this->hashFunction)($data);
             case 'string':
                 return (string)$data;
             case 'object':
