@@ -1,0 +1,8 @@
+mariadb:
+    image: mariadb:latest
+    container_name: sample_mariadb
+    environment: 
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=sample
+    ports: 
+        - 3306:3306

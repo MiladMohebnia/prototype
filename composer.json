@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "miladm/orm": "3.9.9",
+    "miladm/orm": "4.0.6",
     "miladm/prototype_cli": "^1.0",
     "miladm/data-object": "^1.1"
   },
