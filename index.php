@@ -153,6 +153,7 @@ class User2 extends User
         return new UserDataObject();
     }
 }
+
 class Post2 extends Post
 {
     public function defaultDataObject()
@@ -161,7 +162,6 @@ class Post2 extends Post
     }
 }
 
-// $user = User2::get();
 $postList = Post2::get();
 foreach ($postList as $post) {
     (var_dump(
@@ -177,19 +177,19 @@ die;
 
 
 
-die(json_encode(
-    [
-        // User::create(),
-        // Post::create(),
-        // User::update([
-        //     'email' => 'miladmohebnia@gmail.com',
-        //     'password' => 'jkdsafh'
-        // ],  ["name=?", ['milad']])
-        // User::create(),
-        User::get()
-    ],
-    JSON_PRETTY_PRINT
-));
+// die(json_encode(
+//     [
+//         User::create(),
+//         Post::create(),
+//         User::update([
+//             'email' => 'miladmohebnia@gmail.com',
+//             'password' => 'jkdsafh'
+//         ],  ["name=?", ['milad']]),
+//         User::create(),
+//         User::get()
+//     ],
+//     JSON_PRETTY_PRINT
+// ));
 
 
 

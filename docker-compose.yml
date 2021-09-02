@@ -4,5 +4,7 @@ mariadb:
     environment: 
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=sample
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
     ports: 
         - 3306:3306

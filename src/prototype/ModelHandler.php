@@ -244,6 +244,10 @@ class ModelHandler
         return $this;
     }
 
+    public function query(string $query) {
+        return $this->table->safeMode()->query($query);
+    }
+
     private function getTableWithCondition(array $condition)
     {
         if (
@@ -323,4 +327,5 @@ class ModelHandler
         }
         return (object) $data;
     }
+    
 }
