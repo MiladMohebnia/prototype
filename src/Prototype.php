@@ -117,7 +117,7 @@ abstract class Prototype
         return self::model()->count($condition);
     }
 
-    public static function sum(array $condition = [], $column)
+    public static function sum(array $condition, $column)
     {
         return self::model()->sum($condition, $column);
     }
@@ -142,7 +142,8 @@ abstract class Prototype
         return $this->model->table();
     }
 
-    public static function query(string $query) {
+    public static function query(string $query)
+    {
         return self::model()->query($query);
     }
 }

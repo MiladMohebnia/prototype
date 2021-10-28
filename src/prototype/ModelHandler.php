@@ -210,7 +210,7 @@ class ModelHandler
         return $table->count();
     }
 
-    public function sum(array $condition = [], $column)
+    public function sum(array $condition, $column)
     {
         $table = count($condition) > 0 ? $this->getTableWithCondition($condition) : $this->table;
         if (!strpos($column, '.')) {
@@ -244,7 +244,8 @@ class ModelHandler
         return $this;
     }
 
-    public function query(string $query) {
+    public function query(string $query)
+    {
         return $this->table->safeMode()->query($query);
     }
 
@@ -327,5 +328,4 @@ class ModelHandler
         }
         return (object) $data;
     }
-    
 }
