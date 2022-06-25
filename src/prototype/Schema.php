@@ -295,7 +295,7 @@ class Schema
             `createTime` timestamp not null default current_timestamp,
             `updateTime` timestamp default current_timestamp ON UPDATE CURRENT_TIMESTAMP,
             " . $this->init_query_keyConfigurations() . "
-       )engine=$this->engine default charset = utf8 collate=utf8_general_ci auto_increment=1;";
+       )engine=$this->engine default charset = utf8mb4 collate=utf8mb4_general_ci auto_increment=1;";
         $queryList = array_merge($queryList, $this->init_alter_fields_query());
         return $queryList;
     }
