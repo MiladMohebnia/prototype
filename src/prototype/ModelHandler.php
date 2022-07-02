@@ -244,9 +244,9 @@ class ModelHandler
         return $this;
     }
 
-    public function query(string $query)
+    public function query(string $query, $data = [])
     {
-        return $this->table->safeMode()->query($query);
+        return $this->table->safeMode()->query($query, $data);
     }
 
     private function getTableWithCondition(array $condition)

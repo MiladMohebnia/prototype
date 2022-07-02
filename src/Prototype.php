@@ -142,8 +142,8 @@ abstract class Prototype
         return $this->model->table();
     }
 
-    public static function query(string $query)
+    public static function query(string $query, $data = [])
     {
-        return self::model()->query($query);
+        return self::model()->query($query, $data);
     }
 }
