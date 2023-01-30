@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "778a574426dbd23536d2456d67be9276",
+    "content-hash": "bd6974ea511b4f5fc3eeffddefe1a3b2",
     "packages": [
         {
             "name": "miladm/data-object",
@@ -45,16 +45,16 @@
         },
         {
             "name": "miladm/orm",
-            "version": "3.9.9",
+            "version": "3.10.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MiladMohebnia/PHP_ORM.git",
-                "reference": "4f699e6178198c3883ad24bec6159cb71c13f303"
+                "reference": "ef22ab5ae9c21b97133901407bbc21e9c5dd9146"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/4f699e6178198c3883ad24bec6159cb71c13f303",
-                "reference": "4f699e6178198c3883ad24bec6159cb71c13f303",
+                "url": "https://api.github.com/repos/MiladMohebnia/PHP_ORM/zipball/ef22ab5ae9c21b97133901407bbc21e9c5dd9146",
+                "reference": "ef22ab5ae9c21b97133901407bbc21e9c5dd9146",
                 "shasum": ""
             },
             "type": "library",
@@ -76,9 +76,9 @@
             "description": "basic orm for php",
             "support": {
                 "issues": "https://github.com/MiladMohebnia/PHP_ORM/issues",
-                "source": "https://github.com/MiladMohebnia/PHP_ORM/tree/v3.9.9"
+                "source": "https://github.com/MiladMohebnia/PHP_ORM/tree/v3.10.9"
             },
-            "time": "2020-10-20T10:04:52+00:00"
+            "time": "2023-01-30T18:35:05+00:00"
         },
         {
             "name": "miladm/prototype_cli",
@@ -121,5 +121,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
