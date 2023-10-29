@@ -14,6 +14,6 @@ class PrimaryKeyField extends DatabaseField
         $this->type = "int";
         $this->name = $name;
         $this->length = 11;
-        $this->noNull = true;
+        $this->notNull = true;
     }
 }
